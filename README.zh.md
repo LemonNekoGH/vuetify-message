@@ -4,6 +4,8 @@
 
 一个用于显示 [Vuetify 消息条](https://vuetifyjs.com/zh-Hans/components/snackbars) 的 Vue 插件
 
+[这里有演示](https://vuetify-message-demo.lemonneko.moe)
+
 ### 开始使用
 #### 安装依赖
 - `Vue >= 2.6.11`
@@ -55,11 +57,10 @@ export default Vue.extends({
 ### 未完成列表
 - 插件设置：自定义绑定到 `Vue` 示例上的属性名
 - 插件设置：文档
-- 消息条选项：位置
 - 消息条选项：在屏幕上显示的时间
 - 消息条选项：消息条上显示的图标
 - 消息条选项：关闭按钮
-- 消息条选项的文档
+- 消息条选项的文档：位置
 
 [Vue-Badge]: https://img.shields.io/badge/-Vue_>=_2.6.11-4FC08D?logo=vue.js&logoColor=white "Vue"
 [Vue-Link]: https://cn.vuejs.org/ "Vue-Link"

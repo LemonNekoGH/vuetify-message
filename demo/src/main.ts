@@ -4,6 +4,9 @@ import vuetify from './plugins/vuetify'
 import VuetifyMessage from '@lemonneko/vuetify-message'
 import '@lemonneko/vuetify-message/dist/index.css'
 
+// For local test
+// import VuetifyMessage from '../../src/index'
+
 Vue.config.productionTip = false
 Vue.use(VuetifyMessage)
 

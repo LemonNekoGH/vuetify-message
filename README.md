@@ -4,6 +4,8 @@
 
 A vue plugin to show [vuetify snackbar](https://vuetifyjs.com/en/components/snackbars).
 
+[Demo is here](https://vuetify-message-demo.lemonneko.moe)
+
 ### Get Started
 Because Lemoneko's English is not good, you may need to check the example program to understand, sorry
 
@@ -59,11 +61,10 @@ Once the method with name `showMsg` execute, the snackbar will show in your scre
 ### TODO-List
 - Plugin Configure: Custom property name to bind on Vue instance
 - Plugin Configure: Document of custom property name
-- Snackbar option: position
 - Snackbar option: display timeout
 - Snackbar option: prepend icon
 - Snackbar option: close button
-- Document of Snackbar option.
+- Document of Snackbar option: position
 
 [Vue-Badge]: https://img.shields.io/badge/-Vue_>=_2.6.11-4FC08D?logo=vue.js&logoColor=white "Vue"
 [Vue-Link]: https://vuejs.org/ "Vue-Link"

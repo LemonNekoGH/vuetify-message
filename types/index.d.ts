@@ -1,8 +1,18 @@
-import {VueConstructor} from "vue";
+import {VueConstructor} from "vue"
+
+export enum SnackbarPosition {
+  TOP,
+  TOP_LEFT,
+  TOP_RIGHT,
+  BOTTOM,
+  BOTTOM_LEFT,
+  BOTTOM_RIGHT
+}
 
 export interface MessageOptions {
   color?: string
   message: string
+  position?: SnackbarPosition
 }
 
 export interface VuetifyMessages {
@@ -11,6 +21,13 @@ export interface VuetifyMessages {
   error(msg: string): void
   success(msg: string): void
   show(options: MessageOptions): void
+}
+
+export interface SnackbarData {
+  showing: boolean
+  color: string
+  msg: string
+  position: SnackbarPosition
 }
 
 export default class VuetifyMessage {

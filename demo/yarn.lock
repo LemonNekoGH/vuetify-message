@@ -944,10 +944,10 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
-"@lemonneko/vuetify-message@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@lemonneko/vuetify-message/-/vuetify-message-1.1.0.tgz#07319028c3ef970e5a5931a8aecb98ad42aca3b6"
-  integrity sha512-xluzS+56chsSMyrePova5/fbqjere5qPsX1v0Ydu6Z7mdMtrCfVt0L827xq+Z0rW3JmzD36yjNUWz9RJBxWBDA==
+"@lemonneko/vuetify-message@^1.1.6":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@lemonneko/vuetify-message/-/vuetify-message-1.1.6.tgz#37d02e4d5ebff6fd3386160629590d3553ad5e60"
+  integrity sha512-TArsbv5SNU4SpiIKS7NGNvuxx6zYATacDv7knowyhTZHb0c5zTnYZOefZA5ul6lS1vEyiNZS6gE9UJbDirF6DQ==
   dependencies:
     vue "^2.6.14"
     vuetify "^2.5.3"

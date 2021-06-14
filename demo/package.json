@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build && node afterbuild.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@lemonneko/vuetify-message": "^1.1.0",
+    "@lemonneko/vuetify-message": "^1.1.6",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vuetify": "^2.4.0"
