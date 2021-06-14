@@ -51,7 +51,7 @@
               <v-divider></v-divider>
               <v-card-text>
                 <pre class="code">
-1 this.$message.show({
+1 this.$msg.show({
 2     message: '{{message}}',
 3     color: '{{color}}',
 4     position: SnackbarPosition.{{selectedPosition}}
