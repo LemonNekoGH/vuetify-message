@@ -1,8 +1,9 @@
 {
   "name": "@lemonneko/vuetify-message",
-  "version": "2.5.3",
-  "description": "A vue service to show vuetify snackbar",
-  "main": "index.js",
+  "version": "1.1.0",
+  "description": "A vue plugin to show vuetify snackbar",
+  "main": "dist/index.umd.min.js",
+  "types": "types/index.d.ts",
   "repository": "https://github.com/LemonNekoGH/vuetify-message.git",
   "author": "LemonNeko <chheese048@gmail.com>",
   "license": "Apache-2.0",
@@ -12,17 +13,35 @@
     "vuetify": "^2.5.3"
   },
   "devDependencies": {
-    "@types/node": "^15.12.2",
-    "@types/webpack": "^5.28.0",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
+    "@vue/cli-plugin-typescript": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
     "eslint": "^7.28.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-vue": "^7.11.0",
-    "ts-node": "^10.0.0",
+    "sass": "^1.34.1",
+    "sass-loader": "^10.0.0",
+    "ts-loader": "^9.2.3",
     "typescript": "^4.3.2",
-    "webpack": "^5.38.1",
-    "webpack-cli": "^4.7.2"
-  }
+    "vue-template-compiler": "^2.6.14",
+    "vuetify-loader": "^1.7.2",
+    "vue-cli-plugin-vuetify": "^2.4.1"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.14",
+    "vuetify": "^2.5.3"
+  },
+  "scripts": {
+    "build": "vue-cli-service build --target lib --name index src/index.ts --formats commonjs,umd-min"
+  },
+  "files": [
+    "dist",
+    "types",
+    "README.md",
+    "LICENSE"
+  ]
 }
