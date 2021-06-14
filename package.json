@@ -1,6 +1,6 @@
 {
   "name": "@lemonneko/vuetify-message",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A vue plugin to show vuetify snackbar",
   "main": "dist/index.umd.min.js",
   "types": "types/index.d.ts",
@@ -42,6 +42,7 @@
     "dist",
     "types",
     "README.md",
+    "README.zh.md",
     "LICENSE"
   ]
 }

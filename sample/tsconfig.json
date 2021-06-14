@@ -13,8 +13,7 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "vuetify",
-      "@lemonneko/vuetify-message"
+      "vuetify"
     ],
     "paths": {
       "@/*": [
