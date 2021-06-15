@@ -37,6 +37,25 @@ Vue.use(VuetifyMessage)
 ```
 You must import `@lemonneko/vuetify-message/dist/index.css`, or the snackbar will display with no style.
 
+#### Set Up Plugin with `Nuxt.js`
+There is some difference of set up steps in [Nuxt.js](https://nuxtjs.org/docs/2.x/directory-structure/plugins)
+
+For example, in your `plugins/vuetify-message.ts`
+```typescript
+import VuetifyMessage from '@lemonneko/vuetify-message'
+import Vue from 'vue'
+
+Vue.use(VuetifyMessage)
+```
+Then add these code in your `nuxt.config.js` or `nuxt.config.ts`
+```typescript
+export default {
+    plugins: [
+        { src: '~/plugins/vuetify-message', ssr: false }
+    ]
+}
+```
+
 #### Now use it in your logic code.
 For example, in your `App.vue`
 ```vue

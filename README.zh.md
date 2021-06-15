@@ -33,6 +33,26 @@ Vue.use(VuetifyMessage)
 ```
 你需要导入 `@lemonneko/vuetify-message/dist/index.css`，不然显示的消息条会丢失样式。
 
+#### 在`Nuxt.js`中进行配置
+在 [Nuxt.js](https://nuxtjs.org/docs/2.x/directory-structure/plugins) 中配置插件时会不太相同。
+
+举个栗子，这是你的 `plugins/vuetify-message.ts`
+```typescript
+import VuetifyMessage from '@lemonneko/vuetify-message'
+import Vue from 'vue'
+
+Vue.use(VuetifyMessage)
+```
+以上步骤与在 `Vue` 中相同，只是不需要引入`css`文件，然后在`nuxt.config.js` 或 `nuxt.config.ts` 中，你需要进行以下配置：
+```typescript
+export default {
+    plugins: [
+        { src: '~/plugins/vuetify-message', ssr: false }
+    ]
+}
+```
+由于插件使用了 `document` 全局对象，此对象在 `node.js` 中不存在，因此此插件不能使用服务端渲染，需要把 `ssr` 设置为 `false`。
+
 #### 在代码中使用
 举个栗子，这是你的 `App.vue`
 ```vue

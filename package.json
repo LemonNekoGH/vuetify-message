@@ -1,6 +1,6 @@
 {
   "name": "@lemonneko/vuetify-message",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "A vue plugin to show vuetify snackbar",
   "main": "dist/index.umd.min.js",
   "types": "types/index.d.ts",
@@ -8,11 +8,9 @@
   "author": "LemonNeko <chheese048@gmail.com>",
   "license": "Apache-2.0",
   "private": false,
-  "dependencies": {
-    "vue": "^2.6.14",
-    "vuetify": "^2.5.3"
-  },
   "devDependencies": {
+    "vue": "^2.6.14",
+    "vuetify": "^2.5.3",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
     "@vue/cli-plugin-typescript": "^4.5.13",
