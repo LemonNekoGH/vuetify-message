@@ -1,0 +1,18 @@
+import type { Config } from '@jest/types'
+
+const jestConfig: Config.InitialOptions = {
+  moduleFileExtensions: [
+    'js',
+    'ts',
+    'json',
+    'vue'    
+  ],
+  transform: {
+    '*.\\.(vue)$': 'vue-jest',
+    '^.+\\.tsx?$': 'ts-jest'
+  },
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+  testURL: 'http://localhost'
+}
+
+export default jestConfig

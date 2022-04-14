@@ -1,0 +1,55 @@
+{
+  "name": "@lemonneko/vuetify-message",
+  "version": "2.0.0",
+  "description": "A vue plugin to show vuetify snackbar",
+  "repository": "https://github.com/LemonNekoGH/vuetify-message",
+  "author": "LemonNeko <chheese048@gmail.com>",
+  "license": "Apache-2.0",
+  "private": false,
+  "scripts": {
+    "dev": "vite --mode demo",
+    "prepare": "is-ci || husky install",
+    "build:demo": "vite build --mode demo",
+    "build:lib": "vite build --mode lib",
+    "release": "semantic-release"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@rushstack/eslint-patch": "^1.1.2",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "@vue/eslint-config-typescript": "^10.0.0",
+    "@vue/test-utils": "^2.0.0-rc.17",
+    "eslint": "^8.12.0",
+    "eslint-plugin-vue": "^8.5.0",
+    "husky": "^7.0.0",
+    "is-ci": "^3.0.1",
+    "jest": "^27.5.1",
+    "standard-version": "^9.3.2",
+    "ts-jest": "^27.1.4",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3",
+    "vite": "^2.8.6",
+    "vite-plugin-dts": "^1.0.5",
+    "vite-plugin-eslint": "^1.3.0",
+    "vue": "^3.2.31",
+    "vuetify": "^3.0.0-beta.0",
+    "semantic-release": "^19.0.2"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vuetify-message.umd.js",
+  "module": "./dist/vuetify-message.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vuetify-message.es.js",
+      "require": "./dist/vuetify-message.umd.js"
+    }
+  },
+  "types": "./dist/main.d.ts"
+}

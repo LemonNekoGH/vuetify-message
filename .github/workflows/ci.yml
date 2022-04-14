@@ -1,0 +1,193 @@
+name: 构建库和 Demo 页
+on:
+  push:
+    branches:
+      - v2
+      - v2-beta
+jobs:
+  send-start-msg:
+    name: 发送构建开始的通知
+    runs-on: ubuntu-latest
+    steps:
+      # 发送构建开始的消息到 TG
+      - name: 发送构建开始的消息到 TG
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TG_BOT_TO }}
+          token: ${{ secrets.TG_BOT_TOKEN }}
+          message: |
+            `vuetify-message` 包开始构建
+            构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
+            提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
+
+  # 构建并发布库
+  build-and-publish-lib:
+    name: 构建库
+    runs-on: ubuntu-latest
+    steps:
+      # 检出代码
+      - uses: actions/checkout@v3
+      # 设置 Node 环境
+      - name: 设置 Node.js 16
+        with:
+          node-version: '16'
+      # 获取 yarn 缓存目录
+      - name: 获取 yarn 缓存目录
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      # 缓存依赖
+      - uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      # 安装依赖
+      - name: 安装依赖
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn
+      # 构建包
+      - name: 构建库
+        id: build-lib
+        run: yarn build:lib
+        continue-on-error: true
+      # 发送成功消息
+      - name: 发送构建成功的消息到 TG
+        uses: appleboy/telegram-action@master
+        if: steps.build-lib.outcome === 'success'
+        with:
+          to: ${{ secrets.TG_BOT_TO }}
+          token: ${{ secrets.TG_BOT_TOKEN }}
+          message: |
+            `vuetify-message` 包构建成功
+            构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
+            提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
+      # 发送失败消息
+      - name: 发送构建失败的消息到 TG
+        uses: appleboy/telegram-action@master
+        if: steps.build-lib.outcome === 'failure'
+        with:
+          to: ${{ secrets.TG_BOT_TO }}
+          token: ${{ secrets.TG_BOT_TOKEN }}
+          message: |
+            `vuetify-message` 包构建失败
+            构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
+            提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
+      - name: 更新版本并发布到 NPM
+        id: release
+        run: yarn release
+        if: steps.build-lib.outcome === 'success'
+        with:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # 发送成功消息
+      - name: 发送发布成功的消息到 TG
+        uses: appleboy/telegram-action@master
+        if: steps.release.outcome === 'success'
+        with:
+          to: ${{ secrets.TG_BOT_TO }}
+          token: ${{ secrets.TG_BOT_TOKEN }}
+          message: |
+            `vuetify-message` 包发布成功
+            构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
+            提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
+      # 发送失败消息
+      - name: 发送发布失败的消息到 TG
+        uses: appleboy/telegram-action@master
+        if: steps.release.outcome === 'failure'
+        with:
+          to: ${{ secrets.TG_BOT_TO }}
+          token: ${{ secrets.TG_BOT_TOKEN }}
+          message: |
+            `vuetify-message` 包发布失败
+            构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
+            提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
+    # 构建并部署 demo 页
+  build-and-deploy-demo:
+    name: 构建 Demo 页
+    runs-on: ubuntu-latest
+    steps:
+      # 检出代码
+      - uses: actions/checkout@v3
+      # 设置 Node 环境
+      - name: 设置 Node.js 16
+        with:
+          node-version: '16'
+      # 获取 yarn 缓存目录
+      - name: 获取 yarn 缓存目录
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      # 缓存依赖
+      - uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      # 安装依赖
+      - name: 安装依赖
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn
+      # 构建包
+      - name: 构建库
+        continue-on-error: true
+        id: build-demo
+        run: yarn build:demo
+      # 发送成功消息
+      - name: 发送构建成功的消息到 TG
+        uses: appleboy/telegram-action@master
+        if: steps.build-demo.outcome === 'success'
+        with:
+          to: ${{ secrets.TG_BOT_TO }}
+          token: ${{ secrets.TG_BOT_TOKEN }}
+          message: |
+            `vuetify-message` Demo 页构建成功
+            构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
+            提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
+      # 发送失败消息
+      - name: 发送构建失败的消息到 TG
+        uses: appleboy/telegram-action@master
+        if: steps.build-demo.outcome === 'failure'
+        with:
+          to: ${{ secrets.TG_BOT_TO }}
+          token: ${{ secrets.TG_BOT_TOKEN }}
+          message: |
+            `vuetify-message` Demo 页构建失败
+            构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
+            提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
+      # 导出分支信息
+      - name: 导出分支信息
+        id: export-branch-name
+        if: steps.build-demo.outcome === 'success'
+        run: echo "::set-output name=branch_name::$(git branch --show-current)"
+      - name: 部署 Demo 页
+        id: deploy-demo
+        uses: peaceiris/actions-gh-pages@v3
+        if: steps.build-demo.outcome === 'success'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          destination_dir: ${{ steps.export-branch-name.outputs.branch_name }}
+      # 发送成功消息
+      - name: 发送部署成功的消息到 TG
+        uses: appleboy/telegram-action@master
+        if: steps.deploy-demo.outcome === 'success'
+        with:
+          to: ${{ secrets.TG_BOT_TO }}
+          token: ${{ secrets.TG_BOT_TOKEN }}
+          message: |
+            `vuetify-message` Demo 页部署成功
+            构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
+            提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
+      # 发送失败消息
+      - name: 发送部署失败的消息到 TG
+        uses: appleboy/telegram-action@master
+        if: steps.deploy-demo.outcome === 'failure'
+        with:
+          to: ${{ secrets.TG_BOT_TO }}
+          token: ${{ secrets.TG_BOT_TOKEN }}
+          message: |
+            `vuetify-message` Demo 页部署失败
+            构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
+            提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
