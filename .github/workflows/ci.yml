@@ -56,7 +56,7 @@ jobs:
       # 发送成功消息
       - name: 发送构建成功的消息到 TG
         uses: appleboy/telegram-action@master
-        if: steps.build-lib.outcome === 'success'
+        if: steps.build-lib.outcome == 'success'
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
@@ -67,7 +67,7 @@ jobs:
       # 发送失败消息
       - name: 发送构建失败的消息到 TG
         uses: appleboy/telegram-action@master
-        if: steps.build-lib.outcome === 'failure'
+        if: steps.build-lib.outcome == 'failure'
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
@@ -78,14 +78,14 @@ jobs:
       - name: 更新版本并发布到 NPM
         id: release
         run: yarn release
-        if: steps.build-lib.outcome === 'success'
+        if: steps.build-lib.outcome == 'success'
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # 发送成功消息
       - name: 发送发布成功的消息到 TG
         uses: appleboy/telegram-action@master
-        if: steps.release.outcome === 'success'
+        if: steps.release.outcome == 'success'
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
@@ -96,7 +96,7 @@ jobs:
       # 发送失败消息
       - name: 发送发布失败的消息到 TG
         uses: appleboy/telegram-action@master
-        if: steps.release.outcome === 'failure'
+        if: steps.release.outcome == 'failure'
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
@@ -140,7 +140,7 @@ jobs:
       # 发送成功消息
       - name: 发送构建成功的消息到 TG
         uses: appleboy/telegram-action@master
-        if: steps.build-demo.outcome === 'success'
+        if: steps.build-demo.outcome == 'success'
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
@@ -151,7 +151,7 @@ jobs:
       # 发送失败消息
       - name: 发送构建失败的消息到 TG
         uses: appleboy/telegram-action@master
-        if: steps.build-demo.outcome === 'failure'
+        if: steps.build-demo.outcome == 'failure'
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
@@ -162,19 +162,19 @@ jobs:
       # 导出分支信息
       - name: 导出分支信息
         id: export-branch-name
-        if: steps.build-demo.outcome === 'success'
+        if: steps.build-demo.outcome == 'success'
         run: echo "::set-output name=branch_name::$(git branch --show-current)"
       - name: 部署 Demo 页
         id: deploy-demo
         uses: peaceiris/actions-gh-pages@v3
-        if: steps.build-demo.outcome === 'success'
+        if: steps.build-demo.outcome == 'success'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           destination_dir: ${{ steps.export-branch-name.outputs.branch_name }}
       # 发送成功消息
       - name: 发送部署成功的消息到 TG
         uses: appleboy/telegram-action@master
-        if: steps.deploy-demo.outcome === 'success'
+        if: steps.deploy-demo.outcome == 'success'
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
@@ -185,7 +185,7 @@ jobs:
       # 发送失败消息
       - name: 发送部署失败的消息到 TG
         uses: appleboy/telegram-action@master
-        if: steps.deploy-demo.outcome === 'failure'
+        if: steps.deploy-demo.outcome == 'failure'
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
