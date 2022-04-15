@@ -46,8 +46,7 @@ jobs:
             ${{ runner.os }}-yarn-
       # 安装依赖
       - name: 安装依赖
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn
+        run: yarn --prefer-offline
       # 构建包
       - name: 构建库
         id: build-lib
