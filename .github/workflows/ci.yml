@@ -15,6 +15,7 @@ jobs:
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
+          format: markdown
           message: |
             `vuetify-message` 包开始构建
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
@@ -59,6 +60,7 @@ jobs:
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
+          format: markdown
           message: |
             `vuetify-message` 包构建成功
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
@@ -70,6 +72,7 @@ jobs:
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
+          format: markdown
           message: |
             `vuetify-message` 包构建失败
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
@@ -88,6 +91,7 @@ jobs:
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
+          format: markdown
           message: |
             `vuetify-message` 包发布成功
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
@@ -99,6 +103,7 @@ jobs:
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
+          format: markdown
           message: |
             `vuetify-message` 包发布失败
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
@@ -129,8 +134,7 @@ jobs:
             ${{ runner.os }}-yarn-
       # 安装依赖
       - name: 安装依赖
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn
+        run: yarn --prefer-offline
       # 构建包
       - name: 构建库
         continue-on-error: true
@@ -143,6 +147,7 @@ jobs:
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
+          format: markdown
           message: |
             `vuetify-message` Demo 页构建成功
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
@@ -154,6 +159,7 @@ jobs:
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
+          format: markdown
           message: |
             `vuetify-message` Demo 页构建失败
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
@@ -177,6 +183,7 @@ jobs:
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
+          format: markdown
           message: |
             `vuetify-message` Demo 页部署成功
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
@@ -188,6 +195,7 @@ jobs:
         with:
           to: ${{ secrets.TG_BOT_TO }}
           token: ${{ secrets.TG_BOT_TOKEN }}
+          format: markdown
           message: |
             `vuetify-message` Demo 页部署失败
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
