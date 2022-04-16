@@ -18,7 +18,7 @@ jobs:
           node-version: '16'
       # 发送构建开始的消息到 TG
       - name: 发送构建开始的消息到 TG
-        run: node send-build-message.js
+        run: node send-build-message.js --debug
         env:
           CHAT_ID: ${{ secrets.TG_BOT_TO }}
           TG_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
