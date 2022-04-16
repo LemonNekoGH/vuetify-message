@@ -66,7 +66,6 @@ jobs:
         env:
           CHAT_ID: ${{ secrets.TG_BOT_TO }}
           TG_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-          
           TG_MSG: |
             `vuetify-message` 包构建成功
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
@@ -75,10 +74,9 @@ jobs:
       - name: 发送构建失败的消息到 TG
         run: node send-build-message.js
         if: steps.build-lib.outcome == 'failure'
-        with:
+        env:
           CHAT_ID: ${{ secrets.TG_BOT_TO }}
           TG_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-          
           TG_MSG: |
             `vuetify-message` 包构建失败
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
