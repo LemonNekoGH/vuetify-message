@@ -49,6 +49,10 @@
     ".": {
       "import": "./dist/vuetify-message.es.js",
       "require": "./dist/vuetify-message.umd.js"
+    },
+    "./dist": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
     }
   },
   "types": "./dist/main.d.ts"
