@@ -18,7 +18,8 @@ export default defineConfig(({ mode }) => {
             // 在 demo 模式下的特有配置
             build: {
                 outDir: resolve(__dirname, './demoDist')
-            }
+            },
+            base: './'
         }
     } else if (mode === 'lib') {
         return {
