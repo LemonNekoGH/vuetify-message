@@ -6,6 +6,8 @@ EN | [简体中文](./README_zh.md)
 [![vue version](https://shields.io/npm/dependency-version/%40lemonneko%2Fvuetify-message/dev/vuetify)](https://www.npmjs.com/package/vuetify)  
 ![GitHub CI](https://github.com/LemonNekoGH/vuetify-message/actions/workflows/ci.yml/badge.svg)
 
+<img src="./logo.png">
+
 A vue plugin to show [vuetify snackbar](https://next.vuetifyjs.com/en/components/snackbars/).  
 Demo is [here](https://vuetify-message-demo.lemonneko.moe/).
 

@@ -6,6 +6,8 @@
 [![vue version](https://shields.io/npm/dependency-version/%40lemonneko%2Fvuetify-message/dev/vuetify)](https://www.npmjs.com/package/vuetify)  
 ![GitHub CI](https://github.com/LemonNekoGH/vuetify-message/actions/workflows/ci.yml/badge.svg)
 
+<img src="./logo.png">
+
 一个用 [Vuetify 中的 Snackbar](https://next.vuetifyjs.com/en/components/snackbars/) 来显示提示信息的插件。  
 [这里有](https://vuetify-message-demo.lemonneko.moe/) `Vue 2` 版本的 Demo。
 
