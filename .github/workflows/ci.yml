@@ -9,14 +9,20 @@ jobs:
     name: 发送构建开始的通知
     runs-on: ubuntu-latest
     steps:
+      # 检出代码
+      - uses: actions/checkout@v3
+      # 设置 Node 环境
+      - name: 设置 Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
       # 发送构建开始的消息到 TG
       - name: 发送构建开始的消息到 TG
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TG_BOT_TO }}
-          token: ${{ secrets.TG_BOT_TOKEN }}
-          format: markdown
-          message: |
+        run: node send-build-message.js
+        env:
+          CHAT_ID: ${{ secrets.TG_BOT_TO }}
+          TG_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_MSG: |
             `vuetify-message` 包开始构建
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
             提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
@@ -55,25 +61,25 @@ jobs:
         continue-on-error: true
       # 发送成功消息
       - name: 发送构建成功的消息到 TG
-        uses: appleboy/telegram-action@master
+        run: node send-build-message.js
         if: steps.build-lib.outcome == 'success'
-        with:
-          to: ${{ secrets.TG_BOT_TO }}
-          token: ${{ secrets.TG_BOT_TOKEN }}
-          format: markdown
-          message: |
+        env:
+          CHAT_ID: ${{ secrets.TG_BOT_TO }}
+          TG_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          
+          TG_MSG: |
             `vuetify-message` 包构建成功
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
             提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
       # 发送失败消息
       - name: 发送构建失败的消息到 TG
-        uses: appleboy/telegram-action@master
+        run: node send-build-message.js
         if: steps.build-lib.outcome == 'failure'
         with:
-          to: ${{ secrets.TG_BOT_TO }}
-          token: ${{ secrets.TG_BOT_TOKEN }}
-          format: markdown
-          message: |
+          CHAT_ID: ${{ secrets.TG_BOT_TO }}
+          TG_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          
+          TG_MSG: |
             `vuetify-message` 包构建失败
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
             提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
@@ -86,25 +92,25 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # 发送成功消息
       - name: 发送发布成功的消息到 TG
-        uses: appleboy/telegram-action@master
+        run: node send-build-message.js
         if: steps.release.outcome == 'success'
-        with:
-          to: ${{ secrets.TG_BOT_TO }}
-          token: ${{ secrets.TG_BOT_TOKEN }}
-          format: markdown
-          message: |
+        env:
+          CHAT_ID: ${{ secrets.TG_BOT_TO }}
+          TG_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          
+          TG_MSG: |
             `vuetify-message` 包发布成功
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
             提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
       # 发送失败消息
       - name: 发送发布失败的消息到 TG
-        uses: appleboy/telegram-action@master
+        run: node send-build-message.js
         if: steps.release.outcome == 'failure'
-        with:
-          to: ${{ secrets.TG_BOT_TO }}
-          token: ${{ secrets.TG_BOT_TOKEN }}
-          format: markdown
-          message: |
+        env:
+          CHAT_ID: ${{ secrets.TG_BOT_TO }}
+          TG_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          
+          TG_MSG: |
             `vuetify-message` 包发布失败
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
             提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
@@ -142,25 +148,23 @@ jobs:
         run: yarn build:demo
       # 发送成功消息
       - name: 发送构建成功的消息到 TG
-        uses: appleboy/telegram-action@master
+        run: node send-build-message.js
         if: steps.build-demo.outcome == 'success'
-        with:
-          to: ${{ secrets.TG_BOT_TO }}
-          token: ${{ secrets.TG_BOT_TOKEN }}
-          format: markdown
-          message: |
+        env:
+          CHAT_ID: ${{ secrets.TG_BOT_TO }}
+          TG_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_MSG: |
             `vuetify-message` Demo 页构建成功
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
             提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
       # 发送失败消息
       - name: 发送构建失败的消息到 TG
-        uses: appleboy/telegram-action@master
+        run: node send-build-message.js
         if: steps.build-demo.outcome == 'failure'
-        with:
-          to: ${{ secrets.TG_BOT_TO }}
-          token: ${{ secrets.TG_BOT_TOKEN }}
-          format: markdown
-          message: |
+        env:
+          CHAT_ID: ${{ secrets.TG_BOT_TO }}
+          TG_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_MSG: |
             `vuetify-message` Demo 页构建失败
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
             提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
@@ -180,25 +184,23 @@ jobs:
           publish_branch: pages
       # 发送成功消息
       - name: 发送部署成功的消息到 TG
-        uses: appleboy/telegram-action@master
+        run: node send-build-message.js
         if: steps.deploy-demo.outcome == 'success'
-        with:
-          to: ${{ secrets.TG_BOT_TO }}
-          token: ${{ secrets.TG_BOT_TOKEN }}
-          format: markdown
-          message: |
+        env:
+          CHAT_ID: ${{ secrets.TG_BOT_TO }}
+          TG_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_MSG: |
             `vuetify-message` Demo 页部署成功
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
             提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
       # 发送失败消息
       - name: 发送部署失败的消息到 TG
-        uses: appleboy/telegram-action@master
+        run: node send-build-message.js
         if: steps.deploy-demo.outcome == 'failure'
-        with:
-          to: ${{ secrets.TG_BOT_TO }}
-          token: ${{ secrets.TG_BOT_TOKEN }}
-          format: markdown
-          message: |
+        env:
+          CHAT_ID: ${{ secrets.TG_BOT_TO }}
+          TG_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_MSG: |
             `vuetify-message` Demo 页部署失败
             构建基于： `${{ github.event.ref }}` `${{ github.event.commits[0].id }}`
             提交消息：${{ github.event.commits[0].message }}（${{ github.event.commits[0].author.name }}）
