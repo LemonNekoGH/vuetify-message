@@ -27,6 +27,7 @@ const getToken = () => {
 }
 
 const main = () => {
+  if (process.argv.includes('--debug')) console.log(Object.keys(process.env))
   // 转义获取到的消息
   const msg = encodeURIComponent(getMessageContent())
   const token = getToken()
