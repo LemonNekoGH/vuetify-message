@@ -176,7 +176,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           destination_dir: ${{ steps.export-branch-name.outputs.branch_name }}
-          source_dir: demoDist
+          publish_dir: demoDist
           publish_branch: pages
       # 发送成功消息
       - name: 发送部署成功的消息到 TG
