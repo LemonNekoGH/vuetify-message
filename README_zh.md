@@ -44,7 +44,7 @@ $ yarn build:lib
 - [x] 可以调用 `Vuetify` 中的 `Snackbar`
 - [ ] 可以调整 `Snackbar` 的位置
 - [ ] 可以调整 `Snackbar` 的颜色
-- [ ] 可以调整 `Snackbar` 的文字颜色
+- [x] 可以调整 `Snackbar` 的文字颜色
 - [ ] 可以调整 `Snackbar` 的种类
 - [ ] 可以调整 `Snackbar` 的消失时间
 - [ ] 可以调整 `Snackbar` 会被挂载到的元素

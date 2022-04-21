@@ -43,7 +43,7 @@ $ yarn build:lib
 ## Todo list
 - [x] You can use `Snackbar` in `Vuetify`
 - [ ] Configure: `Snackbar` position
-- [ ] Configure: `Snackbar` color
+- [x] Configure: `Snackbar` color
 - [ ] Configure: `Snackbar` text color
 - [ ] Configure: `Snackbar` variant
 - [ ] Configure: `Snackbar` timeout
